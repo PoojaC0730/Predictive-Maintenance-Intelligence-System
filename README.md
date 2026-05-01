@@ -14,3 +14,6 @@ The CMAPSS dataset is not included in this repository. Please download it and pl
 ### 2. Preprocessing & Data Exploration
 - Run the `notebooks/data_exploration.ipynb` notebook to see the data visualizations, correlation heatmaps, and degradation trends.
 - The `src/preprocessing.py` script contains the core data cleaning, feature engineering (rolling averages), and scaling logic.
+
+### 🚀 What's Next? (Coming Soon)
+- **Machine Learning (Stage 3):** The data pipeline is currently ready. Next, we will be building and training a robust **XGBoost model** to predict Remaining Useful Life (RUL) and classify engine health status based on the engineered sensor data. Stay tuned for the training scripts, hyperparameter tuning, and evaluation notebooks!
