@@ -15,5 +15,12 @@ The CMAPSS dataset is not included in this repository. Please download it and pl
 - Run the `notebooks/data_exploration.ipynb` notebook to see the data visualizations, correlation heatmaps, and degradation trends.
 - The `src/preprocessing.py` script contains the core data cleaning, feature engineering (rolling averages), and scaling logic.
 
-### 🚀 What's Next? (Coming Soon)
-- **Machine Learning (Stage 3):** The data pipeline is currently ready. Next, we will be building and training a robust **XGBoost model** to predict Remaining Useful Life (RUL) and classify engine health status based on the engineered sensor data. Stay tuned for the training scripts, hyperparameter tuning, and evaluation notebooks!
+### 3. Feature Engineering (Stage 3)
+We have implemented advanced feature engineering to capture the temporal characteristics of the sensor data:
+- **Rolling Statistics**: Rolling mean and standard deviation for each sensor reading over a window (default: 10 cycles) to smooth noise and capture volatility.
+- **Trend Features**: Calculating the rate of change (slope) for sensor readings to detect early signs of engine degradation.
+- **Health Index**: A custom health score normalized from 1.0 (perfect health) to 0.0 (failure), based on the lifecycle progress and RUL.
+
+### 🚀 What's Next?
+- **Model Training (Stage 4)**: Building and training a robust **XGBoost model** to predict Remaining Useful Life (RUL) using the engineered features.
+- **Deployment**: Creating a Streamlit dashboard for real-time monitoring and maintenance alerts.

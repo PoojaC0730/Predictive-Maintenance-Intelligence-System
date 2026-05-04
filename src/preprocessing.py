@@ -17,7 +17,7 @@ def load_data(filepath: str) -> pd.DataFrame:
     Returns:
         pd.DataFrame: Formatted dataframe containing the operational settings and sensor readings.
     """
-    return pd.read_csv(filepath, sep='\s+', header=None, names=COLUMNS)
+    return pd.read_csv(filepath, sep=r'\s+', header=None, names=COLUMNS)
 
 def create_rul(df: pd.DataFrame, clip_rul: int = None) -> pd.DataFrame:
     """
@@ -58,7 +58,7 @@ def create_test_rul(df_test: pd.DataFrame, filepath_truth: str, clip_rul: int = 
     Returns:
         pd.DataFrame: Testing dataframe with 'RUL' column added.
     """
-    truth_df = pd.read_csv(filepath_truth, sep='\s+', header=None, names=['true_rul'])
+    truth_df = pd.read_csv(filepath_truth, sep=r'\s+', header=None, names=['true_rul'])
     truth_df['unit_id'] = truth_df.index + 1
     
     max_cycles = df_test.groupby('unit_id')['cycle'].max().reset_index()
@@ -97,25 +97,6 @@ def drop_constant_columns(df_train: pd.DataFrame, df_test: pd.DataFrame = None):
     
     return df_train_dropped
 
-def add_rolling_features(df: pd.DataFrame, window: int = 5) -> pd.DataFrame:
-    """
-    Adds rolling mean and rolling standard deviation for sensor columns.
-    
-    Args:
-        df (pd.DataFrame): Dataframe containing sensor columns and 'unit_id'.
-        window (int): Size of the rolling window.
-        
-    Returns:
-        pd.DataFrame: Dataframe with added rolling features.
-    """
-    df = df.copy()
-    sensor_cols = [col for col in df.columns if 'sensor' in col]
-    
-    for col in sensor_cols:
-        df[f'{col}_roll_mean'] = df.groupby('unit_id')[col].transform(lambda x: x.rolling(window, min_periods=1).mean())
-        df[f'{col}_roll_std'] = df.groupby('unit_id')[col].transform(lambda x: x.rolling(window, min_periods=1).std().fillna(0))
-        
-    return df
 
 def clean_data(df_train: pd.DataFrame, df_test: pd.DataFrame) -> tuple:
     """
@@ -143,31 +124,3 @@ def clean_data(df_train: pd.DataFrame, df_test: pd.DataFrame) -> tuple:
     
     return df_train_scaled, df_test_scaled
 
-def add_health_indicators(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Adds Health Index (0 to 1 based on lifecycle) and Traffic Light fault classification.
-    
-    Args:
-        df (pd.DataFrame): DataFrame containing 'RUL', 'unit_id', and 'cycle'.
-        
-    Returns:
-        pd.DataFrame: DataFrame with 'health_index' and 'health_status' added.
-    """
-    df = df.copy()
-    
-    # Calculate quantitative Health Index
-    max_cycles = df.groupby('unit_id')['cycle'].transform('max')
-    df['health_index'] = 1 - (df['cycle'] / max_cycles)
-    
-    # Categorical Health Status
-    def classify_fault(rul):
-        if rul > 100:
-            return 'Healthy'
-        elif 30 < rul <= 100:
-            return 'Warning'
-        else:
-            return 'Critical'
-            
-    df['health_status'] = df['RUL'].apply(classify_fault)
-    
-    return df
