@@ -42,3 +42,10 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# ML Models
+models/*.pkl
+models/*.joblib
+
+# Reports and Metrics
+reports/*.json
