@@ -21,8 +21,8 @@ We have implemented advanced feature engineering to capture the temporal charact
 - **Trend Features**: Calculating the rate of change (slope) for sensor readings to detect early signs of engine degradation.
 - **Health Index**: A custom health score normalized from 1.0 (perfect health) to 0.0 (failure), based on the lifecycle progress and RUL.
 
-### 🚀 What's Next?
-- **Model Training (Stage 4)**: Trained and compared three models (Linear Regression, Random Forest, XGBoost) to predict Remaining Useful Life (RUL).
+### ⚙️ Model Training (Stage 4)
+Trained and compared three models (Linear Regression, Random Forest, XGBoost) to predict Remaining Useful Life (RUL).
 
 ### 📊 Model Performance (FD001)
 
@@ -35,4 +35,8 @@ We have implemented advanced feature engineering to capture the temporal charact
 > [!TIP]
 > **XGBoost** emerged as the best-performing model, achieving an impressive R² score of 0.90. The hyperparameters were specifically tuned (learning rate: 0.03, max depth: 4, subsample: 0.8) to prevent overfitting on noisy sensor data.
 
-- **Deployment**: Creating a Streamlit dashboard for real-time monitoring and maintenance alerts.
+### 🧠 Explainability (Stage 5)
+Integrated SHAP to provide transparency into model predictions, ensuring maintenance teams can identify the exact sensors driving failure risk.
+
+
+*Stay tuned for more updates!*
