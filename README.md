@@ -38,5 +38,11 @@ Trained and compared three models (Linear Regression, Random Forest, XGBoost) to
 ### 🧠 Explainability (Stage 5)
 Integrated SHAP to provide transparency into model predictions, ensuring maintenance teams can identify the exact sensors driving failure risk.
 
+### 🔧 Counterfactual Engine (Stage 6)
+An advanced optimization engine designed to answer the core maintenance question: *"What should change to increase Remaining Useful Life (RUL)?"*
+* **Sequential Sensitivity Search**: Step-by-step sequential tuning of actionable parameters (e.g. LPT speeds, HPT temperatures) to reach a target RUL.
+* **Global Powell Optimization**: An L2-regularized multi-dimensional gradient-free search to find the minimum global adjustment required.
+* **Domain-Specific Recommendations**: Automatic translation of numeric sensor deltas into physical maintenance tasks (e.g. blade washes, turbine cooling system checks, casing seal repairs).
 
 *Stay tuned for more updates!*
+
